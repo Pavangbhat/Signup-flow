@@ -1,12 +1,12 @@
-import React from 'react'
-import "./style.css"
+import React from "react";
+import "./style.css";
 
 const PageNotFound = () => {
-    return (
-        <div>
-            <span>404 Page Not Found</span>
-        </div>
-    )
-}
+  return (
+    <div className="pageNotFoundWrapper">
+      <span>404 Page Not Found</span>
+    </div>
+  );
+};
 
-export default PageNotFound
+export default PageNotFound;

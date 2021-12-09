@@ -1,12 +1,8 @@
-import React from 'react'
-import "./style.css"
+import React from "react";
+import "./style.css";
 
-const CardHeading = ({heading}) => {
-    return (
-        <div className="heading">
-            {heading}
-        </div>
-    )
-}
+const CardHeading = ({ heading }) => {
+  return <div className="heading">{heading}</div>;
+};
 
-export default CardHeading
+export default CardHeading;
