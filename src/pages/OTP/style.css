@@ -1,0 +1,68 @@
+.OTPWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #1e2122;
+  padding: 20px;
+  width: 400px;
+}
+
+.OTPInputWrapper {
+  margin: 10px;
+}
+
+.OTPInputWrapper > input {
+  width: 40px;
+  height: 30px;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.OTPMatchError {
+  margin: 10px;
+}
+
+.OTPMatchError > span {
+  color: rgb(228, 78, 78);
+  font-size: x-large;
+}
+
+.OTPLabel {
+  margin: 10px;
+}
+
+.OTPLabel > span {
+  font-size: x-large;
+  border: 1px solid #5f7979;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.buttonWrapper {
+  margin: 20px;
+  display: flex;
+  text-align: center;
+}
+
+.buttonWrapper > button {
+  margin: 0 10px;
+  color: white;
+  border: none;
+  font-size: 20px;
+  border-radius: 5px;
+  user-select: none;
+  padding: 4px;
+}
+
+.clearBtn {
+  background-color: #5e0151;
+}
+
+.verifyBtn {
+  background-color: #026666;
+}
+
+.clearBtn:active {
+  background-color: #44023b;
+}
