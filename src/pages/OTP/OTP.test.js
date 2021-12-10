@@ -1,22 +1,27 @@
 import React from "react";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent, screen, getByTestId } from "@testing-library/react";
 import OTP from "./index";
 import "@testing-library/jest-dom";
+const mockedUsedNavigate = jest.fn();
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockedUsedNavigate,
+}));
 
 const setup = (elementId) => {
   const utils = render(<OTP />);
-  const input = utils.getByTestId(elementId);
-  return { input, ...utils };
+  const element = utils.getByTestId(elementId);
+  return { element, ...utils };
 };
 
 describe("test if all elements are present or not", () => {
   test("heading", () => {
-    const { input: heading } = setup("heading");
+    const { element: heading } = setup("heading");
     expect(heading).toBeInTheDocument();
   });
 
   test("all input boxes", () => {
-    const { input: inputWtapper } = setup("inputWtapper");
+    const { element: inputWtapper } = setup("inputWtapper");
     expect(inputWtapper).toBeInTheDocument();
     expect(screen.getByTestId("input1")).toBeInTheDocument();
     expect(screen.getByTestId("input2")).toBeInTheDocument();
@@ -25,89 +30,100 @@ describe("test if all elements are present or not", () => {
   });
 
   test("OTP code text", () => {
-    const { input: OTPCode } = setup("OTPCode");
+    const { element: OTPCode } = setup("OTPCode");
     expect(OTPCode).toBeInTheDocument();
   });
 
   test("clear OTP button", () => {
-    const { input: clearBtn } = setup("clearBtn");
+    const { element: clearBtn } = setup("clearBtn");
     expect(clearBtn).toBeInTheDocument();
   });
 
   test("verify OTP button", () => {
-    const { input: verifyBtn } = setup("verifyBtn");
+    const { element: verifyBtn } = setup("verifyBtn");
     expect(verifyBtn).toBeInTheDocument();
   });
 });
 
 describe("input boxes", () => {
   test("must allow only numbers", () => {
-    fireEvent.change(screen.getByTestId("input1", { target: { value: "g" } }));
-    fireEvent.change(screen.getByTestId("input2", { target: { value: "g" } }));
-    fireEvent.change(screen.getByTestId("input3", { target: { value: "g" } }));
-    fireEvent.change(screen.getByTestId("input4", { target: { value: "g" } }));
-    expect(screen.getByTestId("input1")).not.toHaveTextContent("g");
-    expect(screen.getByTestId("input2")).not.toHaveTextContent("g");
-    expect(screen.getByTestId("input3")).not.toHaveTextContent("g");
-    expect(screen.getByTestId("input4")).not.toHaveTextContent("g");
+    render(<OTP />);
+    fireEvent.change(screen.getByTestId("input1"), { target: { value: "g" } });
+    fireEvent.change(screen.getByTestId("input2"), { target: { value: "g" } });
+    fireEvent.change(screen.getByTestId("input3"), { target: { value: "g" } });
+    fireEvent.change(screen.getByTestId("input4"), { target: { value: "g" } });
+    expect(screen.getByTestId("input1").value).not.toBe("g");
+    expect(screen.getByTestId("input2").value).not.toBe("g");
+    expect(screen.getByTestId("input3").value).not.toBe("g");
+    expect(screen.getByTestId("input4").value).not.toBe("g");
   });
 
   test("not to have more than one character", () => {
-    fireEvent.change(screen.getByTestId("input1", { target: { value: 21 } }));
-    fireEvent.change(screen.getByTestId("input2", { target: { value: 32 } }));
-    fireEvent.change(screen.getByTestId("input3", { target: { value: 232 } }));
-    fireEvent.change(
-      screen.getByTestId("input4", { target: { value: "asw" } })
-    );
-    expect(screen.getByTestId("input1")).toHaveValue(2);
-    expect(screen.getByTestId("input2")).toHaveValue(3);
-    expect(screen.getByTestId("input3")).toHaveValue(2);
-    expect(screen.getByTestId("input4")).toHaveValue("");
+    render(<OTP />);
+    fireEvent.change(screen.getByTestId("input1"), { target: { value: 2 } });
+    fireEvent.change(screen.getByTestId("input2"), { target: { value: 23 } });
+    fireEvent.change(screen.getByTestId("input3"), { target: { value: "23" } });
+    fireEvent.change(screen.getByTestId("input4"), { target: { value: "se" } });
+    expect(screen.getByTestId("input1").value).toBe("2");
+    expect(screen.getByTestId("input2").value).toBe("");
+    expect(screen.getByTestId("input3").value).toBe("");
+    expect(screen.getByTestId("input4").value).toBe("");
   });
 });
 
 describe("OTP doesnot match label", () => {
   test("Label not to be present by default", () => {
-    const { input: OTPMissmatchLabel } = setup("OTPMissmatchLabel");
+    const { element: OTPMissmatchLabel } = setup("OTPMissmatchLabel");
     expect(OTPMissmatchLabel).not.toHaveTextContent("OTP doesnot match");
   });
+
   test("label present when OTP doesnot match", () => {
-    const { input: OTPMissmatchLabel } = setup("OTPMissmatchLabel");
+    const { element: OTPMissmatchLabel } = setup("OTPMissmatchLabel");
     fireEvent.change(screen.getByTestId("input1"), { target: { value: 1 } });
     fireEvent.change(screen.getByTestId("input2"), { target: { value: 1 } });
     fireEvent.change(screen.getByTestId("input3"), { target: { value: 1 } });
     fireEvent.change(screen.getByTestId("input4"), { target: { value: 1 } });
-    expect(OTPMissmatchLabel).toHaveTextContent("OTP doesnot match");
+    fireEvent.click(screen.getByTestId("verifyBtn"));
+    expect(OTPMissmatchLabel).toHaveTextContent("OTP not valid");
   });
 });
 
 describe("verify OTP button", () => {
   test("disabled by default", () => {
-    const { input: verifyBtn } = setup("verifyBtn");
+    const { element: verifyBtn } = setup("verifyBtn");
     expect(verifyBtn).toHaveAttribute("disabled");
   });
 
-  test.todo("otp verifyer function");
+  test("otp verifyer function", () => {
+    const { element: verifyBtn } = setup("verifyBtn");
+    fireEvent.change(screen.getByTestId("input1"), { target: { value: 5 } });
+    fireEvent.change(screen.getByTestId("input2"), { target: { value: 7 } });
+    fireEvent.change(screen.getByTestId("input3"), { target: { value: 1 } });
+    fireEvent.change(screen.getByTestId("input4"), { target: { value: 6 } });
+    expect(verifyBtn).not.toHaveAttribute("disabled");
+  });
 
   test("enabled if all input is present", () => {
-    const { input: verifyBtn } = setup("verifyBtn");
-    fireEvent.change(screen.getByTestId("input1", { target: { value: 1 } }));
-    fireEvent.change(screen.getByTestId("input2", { target: { value: 1 } }));
-    fireEvent.change(screen.getByTestId("input3", { target: { value: 1 } }));
-    fireEvent.change(screen.getByTestId("input4", { target: { value: 1 } }));
+    const { element: verifyBtn } = setup("verifyBtn");
+    fireEvent.change(screen.getByTestId("input1"), { target: { value: 1 } });
+    fireEvent.change(screen.getByTestId("input2"), { target: { value: 1 } });
+    fireEvent.change(screen.getByTestId("input3"), { target: { value: 1 } });
+    fireEvent.change(screen.getByTestId("input4"), { target: { value: 1 } });
     expect(verifyBtn.hasAttribute("disabled")).toBe(false);
   });
 });
 
 describe("clear OTP button", () => {
-  const { input: clearBtn } = setup("clearBtn");
-  fireEvent.change(screen.getByTestId("input1", { target: { value: 1 } }));
-  fireEvent.change(screen.getByTestId("input2", { target: { value: 1 } }));
-  fireEvent.change(screen.getByTestId("input3", { target: { value: 1 } }));
-  fireEvent.change(screen.getByTestId("input4", { target: { value: 1 } }));
-  fireEvent.click(clearBtn);
-  expect(screen.getByTestId("input1")).toBe("");
-  expect(screen.getByTestId("input2")).toBe("");
-  expect(screen.getByTestId("input3")).toBe("");
-  expect(screen.getByTestId("input4")).toBe("");
+  test("behaivour of clear button", () => {
+    const { element: clearBtn } = setup("clearBtn");
+    fireEvent.change(screen.getByTestId("input1"), { target: { value: 1 } });
+    fireEvent.change(screen.getByTestId("input2"), { target: { value: 1 } });
+    fireEvent.change(screen.getByTestId("input3"), { target: { value: 1 } });
+    fireEvent.change(screen.getByTestId("input4"), { target: { value: 1 } });
+    fireEvent.click(clearBtn);
+    expect(screen.getByTestId("input1").value).toBe("");
+    expect(screen.getByTestId("input2").value).toBe("");
+    expect(screen.getByTestId("input3").value).toBe("");
+    expect(screen.getByTestId("input4").value).toBe("");
+  });
 });

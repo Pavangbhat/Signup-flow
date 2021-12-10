@@ -6,6 +6,11 @@ import isEmailValid from "../../helpers/emailValidator";
 import isPasswordValid from "../../helpers/passwordValidator";
 import getPasswordStrength from "../../helpers/passwordStrengthDecider";
 import isAllCredentialsValid from "../../helpers/isAllCredentialsValid";
+const mockedUsedNavigate = jest.fn();
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockedUsedNavigate,
+}));
 
 const setup = (elementId) => {
   const utils = render(<Signup />);
