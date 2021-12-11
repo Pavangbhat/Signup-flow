@@ -36,6 +36,9 @@ const OTP = () => {
         let obj = { ...inputValues };
         obj[inputElement] = e.target.value;
         setInputValues({ ...inputValues, ...obj });
+        const form = e.target.form;
+        const index = [...form].indexOf(e.target);
+        index !== 3 && form.elements[index + 1].focus();
       }
     }
   };
