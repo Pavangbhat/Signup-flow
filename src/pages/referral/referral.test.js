@@ -62,21 +62,27 @@ describe("referral false label", () => {
 
 describe("input box", () => {
   test("to allow only 5 characters", () => {
+    render(<Referral />);
+    fireEvent.click(screen.getByTestId("referralTrue"));
     const { element: inputBox } = setup("inputBox");
     expect(inputBox).toHaveAttribute("maxLength", "5");
   });
 
   test("behavior", () => {
+    render(<Referral />);
+    fireEvent.click(screen.getByTestId("referralTrue"));
     const { element: inputBox } = setup("inputBox");
     fireEvent.change(inputBox, { target: { value: "WE4ge" } });
     expect(inputBox.value).toBe("WE4ge");
   });
 });
 
-describe("verify button",()=>{
-    test('behavior',()=>{
-        const { element: verifyBtn } = setup("verifyBtn");
-        fireEvent.click(verifyBtn)
-        expect(verifyBtn).not.toBeInTheDocument();
-    })
-})
+describe("verify button", () => {
+  test("behavior", () => {
+    render(<Referral />);
+    fireEvent.click(screen.getByTestId("referralTrue"));
+    const { element: verifyBtn } = setup("verifyBtn");
+    fireEvent.click(verifyBtn);
+    expect(screen.getByTestId("referralMatchError")).toBeInTheDocument();
+  });
+});

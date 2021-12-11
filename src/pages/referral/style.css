@@ -1,0 +1,58 @@
+.referralWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #1e2122;
+  padding: 20px;
+  width: 300px;
+}
+
+.referralWrapper > p {
+  font-size: x-large;
+}
+
+.linkWrapper > p {
+  font-size: large;
+  user-select: none;
+}
+
+.linkWrapper > p:hover {
+  color: teal;
+}
+
+.referralCode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.referralCode > p {
+  font-size: x-large;
+}
+
+.referralCode > input {
+  font-size: large;
+  border-radius: 3px;
+}
+
+.referralCode > button {
+  color: white;
+  margin-top: 10px;
+  width: 80px;
+  border: none;
+  font-size: 20px;
+  border-radius: 5px;
+  user-select: none;
+  padding: 4px;
+  background-color: #026666;
+}
+
+.referralCode > button:active {
+  background-color: #024747;
+}
+
+.referralMatchError {
+  color: rgb(228, 78, 78);
+  font-size: large;
+}
