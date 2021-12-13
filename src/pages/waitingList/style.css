@@ -1,0 +1,13 @@
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #1e2122;
+  padding: 20px;
+}
+
+.cardWrapper > p {
+  font-size: x-large;
+  color: teal;
+}
