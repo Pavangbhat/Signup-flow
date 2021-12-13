@@ -4,8 +4,7 @@ import Signup from "./pages/signup/index";
 import PageNotFound from "./pages/pageNotFound/index";
 import Referral from "./pages/referral/index";
 import WaitingList from "./pages/waitingList/index";
-
-
+import SignedUp from "./pages/signedup";
 
 function App() {
   return (
@@ -14,6 +13,7 @@ function App() {
       <Route path="/otp" element={<OTP />} />
       <Route path="/referral" element={<Referral />} />
       <Route path="/waiting-list" element={<WaitingList />} />
+      <Route path="/signed-up/:referral" element={<SignedUp />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
