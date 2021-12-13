@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, screen, getByTestId } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import OTP from "./index";
 import "@testing-library/jest-dom";
 const mockedUsedNavigate = jest.fn();
