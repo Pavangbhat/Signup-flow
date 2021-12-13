@@ -56,7 +56,7 @@ const Referral = () => {
               onClick={() => {
                 value !== "WE4ge"
                   ? setIsReferralValid(false)
-                  : navigate("/signed-in");
+                  : navigate("/signed-up/WE4ge");
               }}
             >
               Verify
