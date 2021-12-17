@@ -37,6 +37,7 @@ const Referral = () => {
               maxLength="5"
               data-testid="inputBox"
               autoFocus
+              placeholder="eg: WE4ge"
               value={value}
               onChange={(e) => {
                 setIsReferralValid(true);
