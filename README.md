@@ -1,70 +1,88 @@
-# Getting Started with Create React App
+# Signup Flow README
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+The project has been created as a part of Bit2Byte Bootcamp conducted by Real Dev Squad. The goal of the project is to learn and implement Test Driven Development (TDD). All the pages have been created using Test Driven Development where I wrote test suites and saw them fail and then implemented features making them pass.
 
-In the project directory, you can run:
+This project has been hoisted on Heroku: [https://production-signup-flow-tdd.herokuapp.com/](https://production-signup-flow-tdd.herokuapp.com/)
 
-### `yarn start`
+## This project makes use of the following packages
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
+- react-router-dom 6
+- React testing library
+- jest
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## This project contains the following pages
 
-### `yarn test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [The Signup Page](https://production-signup-flow-tdd.herokuapp.com)
+- [The OTP Page](https://production-signup-flow-tdd.herokuapp.com/otp)
+- [The Referral Page](https://production-signup-flow-tdd.herokuapp.com/referral)
+- [Waiting-List Page](https://production-signup-flow-tdd.herokuapp.com/waiting-list)
+- [Signed Up Page](https://production-signup-flow-tdd.herokuapp.com/signed-up/WE4ge)
 
-### `yarn build`
+## **The Signup Page**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The signup route contains three input fields namely **Email**, **Password**, and **Confirm-Password** fields with a **Submit Button**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Email Field**
 
-### `yarn eject`
+- `Only valid email is accepted consisting of '@' and a '.'`
+- `If the user navigates away and starts filling another field, then the border color of the input field is changed to red`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Password Field**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `While entering the password the strength of a password is tested and a label shows up indicating password strength as Weak or Strong`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**Confirm Password Field**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- `If the password does not match then the border color of the input box is changed to red and the user is acknowledged with the proper message`
 
-## Learn More
+**Submit Button**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- `Submit button is disabled by default and is only enabled when all the fields are filled and satisfies all the constraints`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## The OTP Page
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The OTP page contains four input boxes and a label that shows OTP. This page has two buttons to **Clear** and **Verify** **OTP**
 
-### Analyzing the Bundle Size
+**Input Boxes**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- `All input boxes only accept numbers`
+- `Focus is automatically transferred to the next input box once the current input box is filled`
 
-### Making a Progressive Web App
+**Clear Button and Verify OTP Button**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- `Clear button on click clears all the input boxes`
+- `Verify OTP button is disabled by default`
+- `Verify OTP button is only enabled if all input boxes are filled`
+- `If Right OTP is entered the user will be navigated to the next page else acknowledgment of incorrect OTP is shown`
 
-### Advanced Configuration
+## The Referral Page
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+The Referral page allows users to enter referral code if the user has it
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+**Option Labels**
 
-### `yarn build` fails to minify
+- `If the user selects **Yes I do have** a label then **Enter your referral code** section is shown to the user`
+- `If the user select **No, I wish I had referral** option then he is navigated to the **Waiting-List page**`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Referral Code Section**
+
+- `Input box allows entering referral code of length five`
+- `If the referral code is not valid then the user is acknowledged with a proper message`
+- `If the referral code is valid then the user is navigated to the **Signed Up page**`
+
+## **Waiting-List or Signed Up Page**
+
+---
+
+- `If the referral code is valid then user gets signed up else the user is added to the Waiting-List and appropriate message is shown`
