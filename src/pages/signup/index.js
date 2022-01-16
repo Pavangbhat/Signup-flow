@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Alert from "../../components/alert";
 import CardHeading from "../../components/cardHeading/CardHeading";
 import isEmailValid from "../../helpers/emailValidator";
 import isAllCredentialsValid from "../../helpers/isAllCredentialsValid";
@@ -85,6 +86,7 @@ const Signup = () => {
 
   return (
     <React.Fragment>
+      <Alert />
       <div className="signup">
         <CardHeading heading="Signup" />
         <form
