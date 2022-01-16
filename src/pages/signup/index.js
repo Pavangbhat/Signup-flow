@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "../../components/alert";
 import CardHeading from "../../components/cardHeading/CardHeading";
+import Auth from "../../context/auth/context";
 import isEmailValid from "../../helpers/emailValidator";
 import isAllCredentialsValid from "../../helpers/isAllCredentialsValid";
 import passwordMatcher from "../../helpers/passwordMatcher";
@@ -16,10 +17,15 @@ const Signup = () => {
   const [focusedElement, setFocusedElement] = useState(null);
   const [isCredentialsNotValid, setIsCredentialsNotValid] = useState(true);
   const navigate = useNavigate();
+  const { setIsAuthenticated } = useContext(Auth);
 
   const emailEle = useRef(null);
   const passwordEle = useRef(null);
   const confirmPasswordEle = useRef(null);
+
+  useEffect(() => {
+    setIsAuthenticated(false);
+  }, []);
 
   useEffect(() => {
     isEmailValid(email) && emailEle.current.classList.remove("borderRed");
@@ -186,6 +192,7 @@ const Signup = () => {
             data-testid="submitBtn"
             disabled={isCredentialsNotValid}
             onClick={() => {
+              setIsAuthenticated(true);
               navigate("/otp");
             }}
           >
