@@ -1,6 +1,11 @@
 import { AUTH_ERROR, AUTH_RESET } from "./actions.type";
 
-const errorReducer = (store, action) => {
+const initialValue = {
+  isError: false,
+  errorMessage: "",
+};
+
+const errorReducer = (store = initialValue, action) => {
   const { type, payload } = action;
   switch (type) {
     case AUTH_ERROR: {

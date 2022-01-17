@@ -6,12 +6,15 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { Provider } from "react-redux";
 import store from "./redux/rootStore";
+import AuthContext from "./context/auth/auth";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <AuthContext>
+          <App />
+        </AuthContext>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>,
